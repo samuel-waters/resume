@@ -1,136 +1,531 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Samuel Waters - Resume</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samuel Waters — Director of Information Technology</title>
 <style>
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    line-height: 1.6;
-    color: #333;
-    background-color: #f9f9f9;
+  *, *::before, *::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
-  .container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 30px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Roboto, Helvetica, Arial, sans-serif;
+    background: #dde2e8;
+    color: #1e293b;
+    line-height: 1.6;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
-  h1 {
-    font-size: 2.5em;
-    color: #333;
-    margin-bottom: 10px;
-    text-align: center;
+
+  .page {
+    max-width: 880px;
+    margin: 44px auto 64px;
+    background: #ffffff;
+    box-shadow: 0 10px 70px rgba(0, 0, 0, 0.16), 0 2px 14px rgba(0, 0, 0, 0.08);
   }
-  .contact-info {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #555;
+
+  /* ─── HEADER ─── */
+  .header {
+    background: #0c1a30;
+    color: #ffffff;
+    padding: 52px 58px 44px;
+    position: relative;
+    overflow: hidden;
   }
-  .contact-info a {
-    color: #007bff;
-    text-decoration: none;
+
+  .header::before {
+    content: '';
+    position: absolute;
+    right: -90px;
+    top: -90px;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    border: 52px solid rgba(59, 130, 246, 0.07);
+    pointer-events: none;
   }
-  h2 {
-    font-size: 1.8em;
-    color: #333;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 5px;
-    margin-top: 30px;
+
+  .header::after {
+    content: '';
+    position: absolute;
+    right: 56px;
+    bottom: -110px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 34px solid rgba(59, 130, 246, 0.045);
+    pointer-events: none;
   }
-  h3 {
-    font-size: 1.2em;
-    color: #333;
-    margin-bottom: 10px;
+
+  .header-name {
+    font-size: 3em;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    line-height: 1;
+    margin-bottom: 9px;
   }
-  ul {
-    list-style-type: none;
+
+  .header-title {
+    font-size: 0.88em;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #60a5fa;
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+
+  .contact-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 0;
+    font-size: 0.83em;
+    color: #94a3b8;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 20px;
+  }
+
+  .contact-strip .item {
+    padding: 0 16px;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+    line-height: 1;
+  }
+
+  .contact-strip .item:first-child {
     padding-left: 0;
   }
-  li {
+
+  .contact-strip .item:last-child {
+    border-right: none;
+  }
+
+  .contact-strip a {
+    color: #93c5fd;
+    text-decoration: none;
+  }
+
+  /* ─── BODY ─── */
+  .body {
+    padding: 50px 58px;
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .section {
+    margin-bottom: 46px;
+  }
+
+  .section-title {
+    font-size: 0.68em;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #3b82f6;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, #e2e8f0, transparent);
+  }
+
+  /* ─── SUMMARY ─── */
+  .summary-text {
+    font-size: 0.97em;
+    color: #334155;
+    line-height: 1.88;
+    padding-left: 22px;
+    border-left: 3px solid #3b82f6;
+  }
+
+  /* ─── ACHIEVEMENTS ─── */
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .achievement {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-left: 3px solid #3b82f6;
+    border-radius: 0 6px 6px 0;
+    padding: 16px 18px;
+  }
+
+  .achievement-title {
+    font-size: 0.83em;
+    font-weight: 700;
+    color: #0f1c35;
+    margin-bottom: 5px;
+  }
+
+  .achievement-body {
+    font-size: 0.82em;
+    color: #64748b;
+    line-height: 1.58;
+  }
+
+  /* ─── EXPERIENCE ─── */
+  .job {
+    margin-bottom: 36px;
+  }
+
+  .job:last-child {
+    margin-bottom: 0;
+  }
+
+  .employer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 3px;
+  }
+
+  .employer-name {
+    font-size: 0.78em;
+    font-weight: 700;
+    color: #0f1c35;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .employer-location {
+    font-size: 0.79em;
+    color: #94a3b8;
+  }
+
+  .role-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
     margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f1f5f9;
   }
-  .job-title {
-    font-weight: bold;
+
+  .role-title {
+    font-size: 1.02em;
+    font-weight: 600;
+    color: #1d4ed8;
   }
-  .company {
+
+  .role-dates {
+    font-size: 0.8em;
+    color: #94a3b8;
     font-style: italic;
   }
-  .date {
-    float: right;
+
+  .job-summary {
+    font-size: 0.875em;
+    color: #475569;
+    line-height: 1.78;
+    margin-bottom: 16px;
+  }
+
+  .focus-group {
+    margin-bottom: 12px;
+  }
+
+  .focus-label {
+    font-size: 0.7em;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 7px;
+  }
+
+  .bullets {
+    list-style: none;
+    padding: 0;
+  }
+
+  .bullets li {
+    font-size: 0.865em;
+    color: #475569;
+    line-height: 1.68;
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 5px;
+  }
+
+  .bullets li::before {
+    content: '›';
+    position: absolute;
+    left: 4px;
+    color: #60a5fa;
+    font-size: 1.15em;
+    line-height: 1.5;
+  }
+
+  .role-separator {
+    border: none;
+    border-top: 1px dashed #e2e8f0;
+    margin: 20px 0;
+  }
+
+  /* ─── SKILLS ─── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .skill-block {
+    padding: 14px 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+  }
+
+  .skill-label {
+    font-size: 0.68em;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #3b82f6;
+    margin-bottom: 6px;
+  }
+
+  .skill-items {
+    font-size: 0.81em;
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  /* ─── EDUCATION ─── */
+  .edu-item {
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .edu-item:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .edu-degree {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 2px;
+  }
+
+  .edu-school {
+    font-size: 0.83em;
+    color: #64748b;
+  }
+
+  .edu-note {
+    font-size: 0.77em;
+    color: #94a3b8;
+    font-style: italic;
+    margin-top: 2px;
+  }
+
+  .certs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .cert-badge {
+    font-size: 0.77em;
+    font-weight: 600;
+    background: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+    padding: 4px 13px;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; max-width: 100%; }
   }
 </style>
 </head>
 <body>
-<div class="container">
-  <h1>Samuel Waters</h1>
-  <div class="contact-info">
-    Orlando, FL | (407) 687-4984 | <a href="mailto:samuel@watersbox.com">samuel@watersbox.com</a> | <a href="https://www.linkedin.com/in/samuelrwaters/">LinkedIn Profile</a> | <a href="https://www.samuelwaters.com">samuelwaters.com</a>
+<div class="page">
+
+  <header class="header">
+    <div class="header-name">Samuel Waters</div>
+    <div class="header-title">Director of Information Technology</div>
+    <div class="contact-strip">
+      <span class="item">Orlando, FL</span>
+      <span class="item">(407) 687-4984</span>
+      <span class="item"><a href="mailto:samuel@watersbox.com">samuel@watersbox.com</a></span>
+      <span class="item"><a href="https://www.linkedin.com/in/samuelrwaters/">linkedin.com/in/samuelrwaters</a></span>
+      <span class="item"><a href="https://www.samuelwaters.com">samuelwaters.com</a></span>
+    </div>
+  </header>
+
+  <div class="body">
+
+    <section class="section">
+      <div class="section-title">Executive Profile</div>
+      <p class="summary-text">
+        Technology executive with 8+ years of progressive leadership in enterprise IT, built within the demanding, compliance-sensitive environment of a major regional law firm. As Director of IT at Wicker Smith, I hold full strategic and operational ownership of the firm's technology function — spanning 15 offices, a multi-million dollar annual budget, and a team of six specialists. My work sits at the intersection of boardroom strategy and technical architecture: I develop multi-year roadmaps, negotiate major vendor partnerships, and personally oversee the infrastructure that keeps hundreds of attorneys and staff productive and secure. Over the past several years, I've led the firm's evolution from a reactive, legacy-dependent IT environment into a modern, AI-enabled, zero-trust infrastructure — all while maintaining the operational continuity a law firm demands. My ongoing MBA candidacy with a Cybersecurity focus reflects a deliberate commitment to pairing executive depth with technical authority.
+      </p>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Impact at a Glance</div>
+      <div class="achievements-grid">
+        <div class="achievement">
+          <div class="achievement-title">Zero-Downtime Disaster Response</div>
+          <div class="achievement-body">Commanded the firm's DR/BC activation during Hurricane Ian — achieving zero data loss and zero operational downtime across all 15 offices through years of deliberate planning executed under real-world pressure.</div>
+        </div>
+        <div class="achievement">
+          <div class="achievement-title">Network Modernization at Scale</div>
+          <div class="achievement-body">Retired the firm's legacy MPLS infrastructure, engineering a high-speed fiber and SD-WAN rollout across 15 offices that delivered measurably higher inter-office performance at significantly reduced recurring cost.</div>
+        </div>
+        <div class="achievement">
+          <div class="achievement-title">AI Adoption in a Conservative Vertical</div>
+          <div class="achievement-body">Spearheaded the firm's first AI program — deploying Microsoft Copilot and Thomson Reuters CoCounsel to attorneys and staff, driving real productivity gains in a sector historically resistant to emerging technology.</div>
+        </div>
+        <div class="achievement">
+          <div class="achievement-title">Enterprise Security Transformation</div>
+          <div class="achievement-body">Directed a full-stack security overhaul: FortiGate next-gen firewalls, Zero Trust Network Access, CrowdStrike endpoint protection, and cloud-integrated Duo MFA/SSO with Conditional Access in a Hybrid Azure AD environment.</div>
+        </div>
+        <div class="achievement">
+          <div class="achievement-title">60% Reduction in Endpoint Image Size</div>
+          <div class="achievement-body">Engineered a zero-touch Windows deployment pipeline that cut the base image from 40GB to 16GB — accelerating provisioning timelines and reducing operational overhead across the firm's distributed workforce.</div>
+        </div>
+        <div class="achievement">
+          <div class="achievement-title">Security Vendor & SOC Consolidation</div>
+          <div class="achievement-body">Restructured the firm's security vendor portfolio and transitioned to a best-in-class SOC partner — improving threat detection and response capabilities while optimizing the overall security spend.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Professional Experience</div>
+
+      <div class="job">
+        <div class="employer-row">
+          <span class="employer-name">Wicker, Smith, O'Hara, McCoy &amp; Ford P.A.</span>
+          <span class="employer-location">Tampa, FL &mdash; 15 Offices Statewide</span>
+        </div>
+
+        <div class="role-row">
+          <span class="role-title">Director of Information Technology</span>
+          <span class="role-dates">2020 &mdash; Present</span>
+        </div>
+
+        <p class="job-summary">
+          Promoted to Director with full ownership of the firm's technology strategy, infrastructure, security posture, and team. Serve as the primary technology partner to firm leadership and the CIO, translating business priorities into scalable, resilient IT outcomes. Accountable for a multi-million dollar annual budget spanning capital projects, cloud and SaaS platforms, and managed security services — all while directly managing a six-person specialist team.
+        </p>
+
+        <div class="focus-group">
+          <div class="focus-label">Strategy &amp; Digital Transformation</div>
+          <ul class="bullets">
+            <li>Architected and executed a multi-year technology roadmap that transitioned the firm from fragmented, aging systems to a unified, cloud-forward infrastructure — reducing technical debt, improving agility, and positioning the firm for continued growth.</li>
+            <li>Led the firm's inaugural AI adoption initiative, selecting and deploying Microsoft Copilot and Thomson Reuters CoCounsel across attorney and staff workflows — driving measurable efficiency gains in legal research, document drafting, and matter management.</li>
+            <li>Orchestrated a complete SOC and firewall vendor transition, consolidating the security portfolio around best-in-class platforms and achieving superior threat coverage at optimized spend.</li>
+          </ul>
+        </div>
+
+        <div class="focus-group">
+          <div class="focus-label">Infrastructure &amp; Operations</div>
+          <ul class="bullets">
+            <li>Directed the firm-wide retirement of legacy MPLS in favor of a high-speed fiber and SD-WAN architecture across 15 offices, delivering materially improved inter-office performance and a significant reduction in long-term WAN costs.</li>
+            <li>Commanded the execution of the firm's Disaster Recovery and Business Continuity plan during Hurricane Ian — a real-world stress test resulting in zero data loss and zero downtime, validating the resilience of years of proactive planning.</li>
+            <li>Designed a zero-touch Windows imaging and deployment pipeline that reduced the standard base image by 60% (40GB to 16GB), cutting provisioning time and substantially lowering endpoint management overhead firm-wide.</li>
+          </ul>
+        </div>
+
+        <div class="focus-group">
+          <div class="focus-label">Security &amp; Compliance</div>
+          <ul class="bullets">
+            <li>Governed a comprehensive security stack modernization: deployed FortiGate next-gen firewalls with ZTNA, rolled out CrowdStrike Falcon for advanced endpoint detection and response, and restructured the firm's managed SOC relationship.</li>
+            <li>Strengthened identity and access management by migrating Duo MFA to the cloud, integrating SSO across the firm's application stack, and implementing Conditional Access policies within a Hybrid Azure Active Directory environment.</li>
+          </ul>
+        </div>
+
+        <hr class="role-separator">
+
+        <div class="role-row">
+          <span class="role-title">Team Lead &amp; Project Coordinator / Network Engineer</span>
+          <span class="role-dates">2018 &mdash; 2020</span>
+        </div>
+
+        <p class="job-summary">
+          Dual-role combining hands-on network and systems engineering with day-to-day team leadership and project ownership. Managed the full lifecycle of infrastructure initiatives while maintaining the firm's network security posture and mentoring junior staff.
+        </p>
+
+        <ul class="bullets">
+          <li>Led critical infrastructure migrations — Exchange on-premise to Microsoft 365 and Xen to Hyper-V — with minimal service disruption and on-schedule delivery.</li>
+          <li>Administered SAN storage environments across NetApp and Nimble platforms, ensuring performance, redundancy, and data integrity across the firm's primary data infrastructure.</li>
+          <li>Established network security baselines, implemented firewall policy frameworks, and mentored IT team members — building a disciplined, results-oriented team culture.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Technical Proficiencies</div>
+      <div class="skills-grid">
+        <div class="skill-block">
+          <div class="skill-label">Leadership</div>
+          <div class="skill-items">IT Strategy &amp; Roadmapping · Budget Management · Vendor Negotiation · Team Development · Executive Communication</div>
+        </div>
+        <div class="skill-block">
+          <div class="skill-label">Security</div>
+          <div class="skill-items">FortiGate (NGFW, ZTNA) · CrowdStrike Falcon · SentinelOne · SOC/SIEM · GPO Hardening · Incident Response</div>
+        </div>
+        <div class="skill-block">
+          <div class="skill-label">Cloud &amp; Identity</div>
+          <div class="skill-items">Azure AD / Entra ID (Hybrid) · Microsoft 365 · Duo MFA/SSO · Conditional Access · Exchange Online</div>
+        </div>
+        <div class="skill-block">
+          <div class="skill-label">Infrastructure</div>
+          <div class="skill-items">Hyper-V · VMware · Windows Server · Pure Storage · Dell &amp; HPE Nimble SANs · DR/BC Planning</div>
+        </div>
+        <div class="skill-block">
+          <div class="skill-label">Networking</div>
+          <div class="skill-items">SD-WAN (Aruba, FortiGate) · Cisco Switching · VLANs · Fiber/Broadband WAN · Network Architecture</div>
+        </div>
+        <div class="skill-block">
+          <div class="skill-label">Automation</div>
+          <div class="skill-items">PowerShell · Zero-Touch Imaging · RMM/Monitoring · MDM · Endpoint Lifecycle Management</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Education &amp; Credentials</div>
+
+      <div class="edu-item">
+        <div class="edu-degree">Master of Business Administration (MBA) &mdash; Cybersecurity Emphasis</div>
+        <div class="edu-school">University of West Florida &middot; Pensacola, FL</div>
+        <div class="edu-note">In Progress &mdash; Expected December 2026</div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-degree">Bachelor of Science &mdash; Biomedical Sciences / Public Health <span style="font-weight:400; color:#94a3b8; font-style:italic;">(Cum Laude)</span></div>
+        <div class="edu-school">University of South Florida &middot; Tampa, FL</div>
+      </div>
+
+      <div class="certs">
+        <span class="cert-badge">Microsoft 365 Identity &amp; Services (MS-100) &middot; 2020</span>
+        <span class="cert-badge">Certified Meraki Networking Associate (CMNA) &middot; 2019</span>
+      </div>
+    </section>
+
   </div>
-
-  <h2>Summary</h2>
-  <p>A visionary and strategic technology executive with over 5 years of leadership experience, driving digital transformation and innovation for a multi-site law firm. Proven success in aligning technology with business goals, orchestrating multi-million dollar budgets, and pioneering firm-wide adoption of emerging technologies like AI. Expertise in cloud architecture, cybersecurity, and building high-performing teams to drive organizational success.</p>
-
-  <h2>Key Achievements</h2>
-  <ul>
-    <li><strong>Strategic Technology Leadership:</strong> Drove digital transformation by architecting and executing a multi-year technology roadmap, resulting in a more agile and scalable infrastructure.</li>
-    <li><strong>Cost-Effective Modernization:</strong> Realized significant cost savings by championing the replacement of legacy MPLS with a high-speed fiber and SD-WAN solution, increasing inter-office WAN performance and collaboration efficiency for 15 offices.</li>
-    <li><strong>AI Innovation & Adoption:</strong> Increased productivity and efficiency by pioneering the firm's adoption of AI, leading the training and deployment of Microsoft CoPilot and Thomson Reuters CoCounsel/WestLaw Next.</li>
-    <li><strong>Enhanced Security Posture:</strong> Reduced risk and improved compliance by governing a full security stack overhaul, implementing Fortigate firewalls, ZTNA, and deploying CrowdStrike for advanced endpoint protection.</li>
-    <li><strong>Business Continuity & Disaster Recovery:</strong> Ensured business continuity and minimized downtime by commanding the successful execution of the firm's Disaster Recovery (DR) and Business Continuity (BC) plan during Hurricane Ian, resulting in zero data loss.</li>
-  </ul>
-
-  <h2>Professional Experience</h2>
-  <h3>WICKER, SMITH, O'HARA, MCCOY & FORD P.A., Tampa, FL</h3>
-  <p><span class="job-title">Director of Information Technology</span> <span class="date">(approx. 2020 - Present)</span></p>
-  <p>Led all aspects of IT operations, infrastructure, and security for a prominent multi-site law firm, managing a multi-million dollar budget and directing a team of 6 specialists. Partnered with the CIO and senior leadership to develop and execute technology roadmaps aligned with firm-wide strategic goals.</p>
-  <ul>
-    <li><strong>Strategic Technology Leadership:</strong>
-      <ul>
-        <li>Drove digital transformation by architecting and executing a multi-year technology roadmap to overhaul all systems and networking gear, resulting in a more agile and scalable infrastructure.</li>
-        <li>Increased productivity and efficiency by pioneering the firm's adoption of AI, leading the training and deployment of Microsoft CoPilot and Thomson Reuters CoCounsel/WestLaw Next.</li>
-        <li>Realized significant cost savings by orchestrating a transition to a new SOC and firewall vendor, enhancing the firm's security toolkit with market-leading products like CrowdStrike.</li>
-      </ul>
-    </li>
-    <li><strong>Infrastructure & Operations:</strong>
-      <ul>
-        <li>Realized significant cost savings and increased inter-office WAN performance by championing the replacement of legacy MPLS with a high-speed fiber and SD-WAN solution.</li>
-        <li>Ensured business continuity and minimized downtime by commanding the successful execution of the firm's Disaster Recovery (DR) and Business Continuity (BC) plan during Hurricane Ian, resulting in zero data loss.</li>
-        <li>Improved operational efficiency and reduced deployment time by engineering a zero-touch Windows deployment strategy, reducing the base image size by 60% (from 40GB to 16GB).</li>
-      </ul>
-    </li>
-    <li><strong>Security & Compliance:</strong>
-      <ul>
-        <li>Reduced risk and improved compliance by governing a full security stack overhaul, implementing Fortigate firewalls, ZTNA, and deploying CrowdStrike for advanced endpoint protection.</li>
-        <li>Strengthened identity and access management by guiding the migration of Duo MFA from on-premise to the cloud, integrated with SSO, and configured Conditional Access policies in a Hybrid Azure AD environment.</li>
-      </ul>
-    </li>
-  </ul>
-  <p><span class="job-title">Team Lead & Project Coordinator / Network Engineer</span> <span class="date">(2018 - approx. 2020)</span></p>
-  <ul>
-    <li>Supervised IT team members, managed the full lifecycle of IT infrastructure projects, and implemented and maintained network security measures, including migrations (Exchange to O365, Xen to Hyper-V) and SAN storage management (NetApp, Nimble).</li>
-  </ul>
-
-  <h2>Technical Proficiencies</h2>
-  <ul>
-    <li><strong>Strategy & Management:</strong> IT Roadmapping, Budget Management, Vendor Negotiation, Team Leadership</li>
-    <li><strong>Security:</strong> Fortigate (Firewall, ZTNA), CrowdStrike, SentinelOne, SOC/SIEM Management, GPO Hardening</li>
-    <li><strong>Cloud & Identity:</strong> Azure AD, Office 365, Duo (MFA, SSO, Cloud Migration), Conditional Access</li>
-    <li><strong>Infrastructure:</strong> Pure Storage, Dell & HPE Nimble SANs, Hyper-V, VMware, Windows Server</li>
-    <li><strong>Networking:</strong> SD-WAN (Aruba, Fortigate), Cisco Switching, VLANs, Fiber/Broadband WAN</li>
-    <li><strong>Automation & Deployment:</strong> PowerShell, Zero-Touch Imaging, RMM/Monitoring Tools</li>
-  </ul>
-
-  <h2>Education and Certifications</h2>
-  <p><strong>Master of Business Administration (MBA), Cybersecurity Emphasis</strong> (In Progress, Expected Dec 2026)<br>
-  <em>University of West Florida - Pensacola, FL</em></p>
-  <p><strong>Bachelor of Science (B.S.), Biomedical Sciences/Public Health (Cum Laude)</strong><br>
-  <em>University of South Florida - Tampa, FL</em></p>
-  <p><strong>Microsoft 365 Identity and Services Certification (MS 100)</strong>, 2020</p>
-  <p><strong>Certified Meraki Networking Associate (CMNA)</strong>, 2019</p>
 </div>
 </body>
 </html>
