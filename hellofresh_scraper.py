@@ -7,6 +7,7 @@ Auto-refreshes the Bearer token from the public recipes page.
 
 import json
 import re
+import subprocess
 import sys
 import time
 import argparse
@@ -23,11 +24,30 @@ TOKEN_FILE = DATA_DIR / "token.json"
 
 HEADERS = {
     "User-Agent": (
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
-        "Chrome/120.0.0.0 Safari/537.36"
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
     ),
-    "Accept": "application/json",
+    "Accept": "application/json, text/plain, */*",
+    "Referer": "https://www.hellofresh.com/recipes",
+    "Origin": "https://www.hellofresh.com",
 }
+
+
+def _curl_get(url: str, extra_headers: list[str] | None = None) -> str:
+    """Fetch a URL via curl (bypasses Python TLS fingerprint blocking)."""
+    cmd = [
+        "curl", "-s", "-L",
+        "-H", f"User-Agent: {HEADERS['User-Agent']}",
+        "-H", "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "-H", "Accept-Language: en-US,en;q=0.9",
+    ]
+    for h in (extra_headers or []):
+        cmd += ["-H", h]
+    cmd.append(url)
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=20)
+    if result.returncode != 0:
+        raise RuntimeError(f"curl failed: {result.stderr}")
+    return result.stdout
 
 
 def get_bearer_token() -> str:
@@ -37,15 +57,14 @@ def get_bearer_token() -> str:
         return cached
 
     print("Fetching Bearer token from HelloFresh...")
-    resp = requests.get(HF_RECIPES_URL, headers={**HEADERS, "Accept": "text/html"}, timeout=15)
-    resp.raise_for_status()
+    html = _curl_get(HF_RECIPES_URL)
 
-    m = re.search(r'"access_token"\s*:\s*"([^"]+)"', resp.text)
+    m = re.search(r'"access_token"\s*:\s*"([^"]+)"', html)
     if not m:
         raise RuntimeError("Could not find access_token in HelloFresh page")
 
     token = m.group(1)
-    expires_match = re.search(r'"expires_in"\s*:\s*(\d+)', resp.text)
+    expires_match = re.search(r'"expires_in"\s*:\s*(\d+)', html)
     expires_in = int(expires_match.group(1)) if expires_match else 3600
 
     DATA_DIR.mkdir(exist_ok=True)
@@ -194,15 +213,14 @@ def search_recipes(
     if min_rating:
         params["min-rating"] = min_rating
 
-    url = f"{API_BASE}/recipes/search"
-    resp = requests.get(
-        url,
-        params=params,
-        headers={**HEADERS, "Authorization": f"Bearer {token}"},
-        timeout=15,
-    )
-    resp.raise_for_status()
-    return resp.json()
+    from urllib.parse import urlencode
+    url = f"{API_BASE}/recipes/search?{urlencode(params)}"
+    raw = _curl_get(url, extra_headers=[
+        f"Authorization: Bearer {token}",
+        "Referer: https://www.hellofresh.com/recipes",
+        "Origin: https://www.hellofresh.com",
+    ])
+    return json.loads(raw)
 
 
 def scrape(
@@ -248,17 +266,14 @@ def scrape(
                 tags=tags,
                 min_rating=min_rating,
             )
-        except requests.HTTPError as e:
-            if e.response.status_code == 401:
-                # Token expired — force refresh and retry once
-                TOKEN_FILE.unlink(missing_ok=True)
-                token = get_bearer_token()
-                data = search_recipes(
-                    token, limit=per_page, offset=offset,
-                    query=query, cuisine=cuisine, tags=tags, min_rating=min_rating,
-                )
-            else:
-                raise
+        except (RuntimeError, json.JSONDecodeError):
+            # Token may have expired — force refresh and retry once
+            TOKEN_FILE.unlink(missing_ok=True)
+            token = get_bearer_token()
+            data = search_recipes(
+                token, limit=per_page, offset=offset,
+                query=query, cuisine=cuisine, tags=tags, min_rating=min_rating,
+            )
 
         items = data.get("items", [])
         if not items:
